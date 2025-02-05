@@ -5,14 +5,14 @@ Homework 0 - Kronecker Product
 import numpy as np
 import matplotlib.pyplot as plt
 from timeit import default_timer as timer
-import functions as f
+import functions as mf
 
 # Problem 1 ...
 # Item a ...
 N = [2,4,8,16,32,64]
 Method_1 = []
 Method_2 = []
-monte_carlo = int(1e+3)
+monte_carlo = int(5e+2)
 
 for n in N:
     print(f"N = {n}")
@@ -54,7 +54,7 @@ plt.show()
 print("")
 
 # Item b ...
-monte_carlo = int(1e+1)
+monte_carlo = int(1e+3)
 K = [2,4,6,8,10]
 #print(np.pow(2,K))
 N = 2
