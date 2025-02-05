@@ -22,7 +22,7 @@ M = 2
 N = 4
 T = 50
 SNR = np.array(range(-5,35,5))
-monte_carlo = 1000000
+monte_carlo = int(1e+6)
 
 NMSE_H = []
 BER = []
