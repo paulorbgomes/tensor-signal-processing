@@ -12,7 +12,7 @@ import functions as mf
 N = [2,4,8,16,32,64]
 Method_1 = []
 Method_2 = []
-monte_carlo = int(5e+2)
+monte_carlo = int(1e+2)
 
 for n in N:
     print(f"N = {n}")
@@ -54,9 +54,7 @@ plt.show()
 print("")
 
 # Item b ...
-monte_carlo = int(1e+3)
 K = [2,4,6,8,10]
-#print(np.pow(2,K))
 N = 2
 Method_1 = []
 # Method 1 ...
