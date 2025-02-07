@@ -22,7 +22,7 @@ M = 2
 N = 4
 T = 50
 SNR = np.array(range(-5,35,5))
-monte_carlo = int(1e+6)
+monte_carlo = int(1e+5)
 
 NMSE_H = []
 BER = []
@@ -31,7 +31,7 @@ for snr in SNR:
     ber = []
     nmse_H = []
     for runs in range(monte_carlo):
-        Ho = np.random.normal(0,1,(N,M)) + 1j*np.random.normal(0,1,(N,M)) # channel matrix
+        Ho = (1/np.sqrt(2)) * np.random.normal(0,1,(N,M)) + 1j*np.random.normal(0,1,(N,M)) # channel matrix
         So = np.random.choice([-1,1],(M,T)) # pilots matrix
         Y = awgn_noise(np.dot(Ho,So),snr)
 

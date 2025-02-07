@@ -33,7 +33,7 @@ J = [10,10]
 R = 4
 
 SNR = range(0,35,5)
-monte_carlo = int(1e+2)
+monte_carlo = int(1e+3)
 
 Final_X = np.zeros((len(SNR),len(I)))
 col = 0
