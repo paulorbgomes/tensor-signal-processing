@@ -47,7 +47,6 @@ def ls_kraof(C,ra,rb):
     return A_hat, B_hat
 
 def vec(A):
-    (ra,ca) = A.shape
     return A.reshape((A.size,1),order='F')
 
 def unvec(a,ra,ca):
