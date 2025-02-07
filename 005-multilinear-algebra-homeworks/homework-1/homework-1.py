@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 # Problem 1 ...
 N = [2,4,8,16,32,64,128]
-monte_carlo = int(5e+3)
+monte_carlo = int(1e+2)
 
 Method_1 = []
 Method_2 = []

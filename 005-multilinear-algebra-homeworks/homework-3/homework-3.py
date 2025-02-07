@@ -9,8 +9,8 @@ import scipy as sp
 import scipy.linalg
 
 # Problem 1 ...
-A = np.random.normal(0,1,(4,2)) + 1j * np.random.normal(0,1,(4,2))
-B = np.random.normal(0,1,(6,2)) + 1j * np.random.normal(0,1,(6,2))
+A = (1/np.sqrt(2)) * (np.random.normal(0,1,(4,2)) + 1j * np.random.normal(0,1,(4,2)))
+B = (1/np.sqrt(2)) * (np.random.normal(0,1,(6,2)) + 1j * np.random.normal(0,1,(6,2)))
 C = sp.linalg.khatri_rao(A,B)
 
 A_hat,B_hat = mf.ls_kraof(C,4,6)
@@ -43,8 +43,8 @@ for i in range(len(I)):
     for snr in SNR:
         nmse_X = []
         for j in range(monte_carlo):
-            A = np.random.normal(0,1,(I[i],R)) + 1j * np.random.normal(0,1,(I[i],R))
-            B = np.random.normal(0,1,(J[i],R)) + 1j * np.random.normal(0,1,(J[i],R))
+            A = (1/np.sqrt(2)) * (np.random.normal(0,1,(I[i],R)) + 1j * np.random.normal(0,1,(I[i],R)))
+            B = (1/np.sqrt(2)) * (np.random.normal(0,1,(J[i],R)) + 1j * np.random.normal(0,1,(J[i],R)))
             Xo = sp.linalg.khatri_rao(A,B)
             X = mf.awgn_noise(Xo,snr) 
 

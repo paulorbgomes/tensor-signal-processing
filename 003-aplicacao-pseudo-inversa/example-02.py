@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def awgn_noise(signal_matrix,snr_db):
-    noise = np.random.normal(0,1,signal_matrix.shape)
+    noise = (1/np.sqrt(2)) * (np.random.normal(0,1,signal_matrix.shape) +1j*np.random.normal(0,1,signal_matrix.shape))
     alpha = np.sqrt(((np.linalg.norm(signal_matrix,'fro')**2) / (np.linalg.norm(noise,'fro')**2)) * np.power(10,-snr_db/10))
     return signal_matrix + alpha*noise
 
@@ -22,7 +22,7 @@ M = 2
 N = 4
 T = 50
 SNR = np.array(range(-5,35,5))
-monte_carlo = int(1e+5)
+monte_carlo = int(1e+3)
 
 NMSE_H = []
 BER = []
@@ -31,7 +31,7 @@ for snr in SNR:
     ber = []
     nmse_H = []
     for runs in range(monte_carlo):
-        Ho = (1/np.sqrt(2)) * np.random.normal(0,1,(N,M)) + 1j*np.random.normal(0,1,(N,M)) # channel matrix
+        Ho = (1/np.sqrt(2)) * (np.random.normal(0,1,(N,M)) + 1j*np.random.normal(0,1,(N,M))) # channel matrix
         So = np.random.choice([-1,1],(M,T)) # pilots matrix
         Y = awgn_noise(np.dot(Ho,So),snr)
 

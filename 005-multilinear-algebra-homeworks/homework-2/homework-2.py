@@ -12,7 +12,7 @@ import functions as mf
 # Problem 1 ...
 I = [2,4,8,16,32,64,128,256]
 R = [2,4]
-monte_carlo = int(5e+3)
+monte_carlo = int(1e+2)
 
 Final_1 = np.zeros((len(I),len(R)))
 Final_2 = np.zeros((len(I),len(R)))
@@ -99,7 +99,7 @@ plt.show()
 
 print("")
 
-# PRoblem 2 ...
+# Problem 2 ...
 
 
 

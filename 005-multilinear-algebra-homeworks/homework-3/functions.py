@@ -5,7 +5,7 @@ Specific functions ...
 import numpy as np
 
 def awgn_noise(signal_matrix,snr_db):
-    noise = np.random.normal(0,1,signal_matrix.shape)
+    noise = (1/np.sqrt(2)) * (np.random.normal(0,1,signal_matrix.shape) + 1j*np.random.normal(0,1,signal_matrix.shape))
     alpha = np.sqrt(((np.linalg.norm(signal_matrix,'fro')**2) / (np.linalg.norm(noise,'fro')**2)) * np.power(10,-snr_db/10))
     return signal_matrix + alpha*noise
 
@@ -45,6 +45,13 @@ def ls_kraof(C,ra,rb):
         B_hat[:,i] = np.sqrt(S[0]) * U[:,0]
         A_hat[:,i] = np.sqrt(S[0]) * Vh[0,:]
     return A_hat, B_hat
+
+def vec(A):
+    return A.reshape((A.size,1),order='F')
+
+def unvec(a,ra,ca):
+    return a.reshape((ra,ca),order='F')
+
         
 
 
