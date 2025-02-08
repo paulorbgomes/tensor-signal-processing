@@ -35,6 +35,12 @@ for snr in SNR:
         So = np.random.choice([-1,1],(M,T)) # pilots matrix
         Y = awgn_noise(np.dot(Ho,So),snr)
 
+        '''
+        noise = Y - np.dot(Ho,So)
+        SNRcalc = 10*np.log10((np.linalg.norm(np.dot(Ho,So),'fro')**2) / (np.linalg.norm(noise,'fro')**2))
+        print(SNRcalc)
+        '''
+
         # Pilot-assisted channel estimation ...
         Hhat = np.dot(Y,np.linalg.pinv(So))
         nmse_H.append(nmse(Ho,Hhat))

@@ -41,6 +41,7 @@ def khatri_rao_product(A,B):
         print("Invalid operation!")
 
 def ls_kraof(C,ra,rb):
+    # C = khatri(A,B)
     (rc,cc) = C.shape
     A_hat = np.zeros((ra,cc)) + 1j*np.zeros((ra,cc))
     B_hat = np.zeros((rb,cc)) + 1j*np.zeros((rb,cc))
@@ -50,6 +51,23 @@ def ls_kraof(C,ra,rb):
         B_hat[:,i] = np.sqrt(S[0]) * U[:,0]
         A_hat[:,i] = np.sqrt(S[0]) * Vh[0,:]
     return A_hat, B_hat
+
+def ls_kronf(A,mb,nb):
+    # A = kron(B,C)
+    (m,n) = A.shape
+    mc,nc = int(m/mb),int(n/nb)
+    T = np.zeros((mc*nc,mb*nb)) + 1j*np.zeros((mc*nc,mb*nb))
+    x = np.zeros((nb*nc,mb*nb)) + 1j*np.zeros((nb*nc,mb*nb))
+    for iib in range(1,mb+1,1):
+        for jjb in range(1,nb+1,1):
+            x = A[(iib-1)*mc:iib*mc,(jjb-1)*nc:jjb*nc]
+            vec_x = vec(x).squeeze()
+            T[:,((jjb-1)*mb+iib)-1] = vec_x
+    U,S,Vh = np.linalg.svd(T,full_matrices=False)
+    C_hat = unvec(np.sqrt(S[0]) * U[:,0],mc,nc)
+    B_hat = unvec(np.sqrt(S[0]) * Vh[0,:],mb,nb)
+    return B_hat, C_hat
+    
 
 def vec(A):
     return A.reshape((A.size,1),order='F')
