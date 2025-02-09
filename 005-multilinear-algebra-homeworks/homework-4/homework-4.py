@@ -31,7 +31,7 @@ P = [3,3]
 Q = [5,5]
 
 SNR = range(0,35,5)
-monte_carlo = int(1e+3)
+monte_carlo = int(5e+3)
 
 Final_X = np.zeros((len(SNR),len(I)))
 col = 0

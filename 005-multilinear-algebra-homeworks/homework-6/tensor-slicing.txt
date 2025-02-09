@@ -1,0 +1,1 @@
+https://lisaong.github.io/mldds-courseware/01_GettingStarted/numpy-tensor-slicing.slides.html
