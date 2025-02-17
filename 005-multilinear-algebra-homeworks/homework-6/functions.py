@@ -68,7 +68,6 @@ def ls_kronf(A,mb,nb):
     B_hat = unvec(np.sqrt(S[0]) * Vh[0,:],mb,nb)
     return B_hat, C_hat
     
-
 def vec(A):
     return A.reshape((A.size,1),order='F')
 
