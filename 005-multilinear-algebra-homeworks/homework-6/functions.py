@@ -74,6 +74,34 @@ def vec(A):
 def unvec(a,ra,ca):
     return a.reshape((ra,ca),order='F')
 
+def ten3_unfold(tenX,n):
+    # Follows Kolda's notation ... 
+    K,I,J = tenX.shape
+    if n == 1: # mode-1 unfolding
+        X1 = np.zeros((I,J*K)) + 1j*np.zeros((I,J*K))
+        col = 0
+        for k in range(K):
+            for j in range(J):
+                X1[:,col] = tenX[k,:,j]
+                col += 1
+        return X1
+    elif n == 2: # mode-2 unfolding
+        X2 = np.zeros((J,I*K)) + 1j*np.zeros((J,I*K))
+        col = 0
+        for k in range(K):
+            for i in range(I):
+                X2[:,col] = tenX[k,i,:]
+                col += 1
+        return X2
+    elif n == 3: # mode-3 unfolding
+        X3 = np.zeros((K,I*J)) + 1j*np.zeros((K,I*J))
+        col = 0
+        for j in range(J):
+            for i in range(I):
+                X3[:,col] = tenX[:,i,j]
+                col += 1
+        return X3
+
         
 
 

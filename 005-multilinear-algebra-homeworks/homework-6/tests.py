@@ -76,6 +76,34 @@ unvecA = mf.unvec(vecA,A.shape[0],A.shape[1])
 print(f"NMSE_unvec: {mf.nmse(A,unvecA)}")
 '''
 
+# 6. Unfold ...
+I = 3
+J = 5
+K = 5
+R = 4
+A = np.random.normal(0,1,(I,R)) + 1j*np.random.normal(0,1,(I,R))
+B = np.random.normal(0,1,(J,R)) + 1j*np.random.normal(0,1,(J,R))
+C = np.random.normal(0,1,(K,R)) + 1j*np.random.normal(0,1,(K,R))
+tenX = np.zeros((K,I,J)) + 1j*np.zeros((K,I,J))
+for k in range(K):
+    tenX[k,:,:] = A@np.diag(C[k,:])@(B.T)
+
+X1 = mf.ten3_unfold(tenX,1)
+X1_kolda = A@mf.khatri_rao_product(C,B).T
+NMSE_X1 = mf.nmse(X1, X1_kolda)
+print(f"NMSE(X1) = {NMSE_X1}")
+
+X2 = mf.ten3_unfold(tenX,2)
+X2_kolda = B@mf.khatri_rao_product(C,A).T
+NMSE_X2 = mf.nmse(X2, X2_kolda)
+print(f"NMSE(X2) = {NMSE_X2}")
+
+X3 = mf.ten3_unfold(tenX,3)
+X3_kolda = C@mf.khatri_rao_product(B,A).T
+NMSE_X3 = mf.nmse(X3, X3_kolda)
+print(f"NMSE(X3) = {NMSE_X3}")
+    
+
 
 
 
