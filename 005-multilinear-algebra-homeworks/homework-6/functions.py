@@ -102,6 +102,55 @@ def ten3_unfold(tenX,n):
                 col += 1
         return X3
 
+def ten3_fold(tenX_unf,v_dims,n):
+    # v_dims = [I,J,K] (vector with dimensions of the third order tensor)
+    I = v_dims[0]
+    J = v_dims[1]
+    K = v_dims[2]
+    tenX = np.zeros((K,I,J)) + 1j*np.zeros((K,I,J))
+    if n == 1:
+        for k in range(K):
+            tenX[k,:,:] = tenX_unf[:,k*J:(k+1)*J]
+    elif n == 2:
+        for k in range(K):
+            tenX[k,:,:] = tenX_unf[:,k*I:(k+1)*I].T
+    elif n == 3:
+        for j in range(J):
+            tenX[:,:,j] = tenX_unf[:,j*I:(j+1)*I]
+    return tenX
+
+def ten3_eye(N):
+    tenI = np.zeros((N,N,N)) + 1j*np.zeros((N,N,N))
+    for i in range(N):
+        for j in range(N):
+            for k in range(N):
+                if i == j and i == k and j == k:
+                    tenI[k,i,j] = 1
+    return tenI
+
+def ten3_parafac(A,B,C):
+    # A, B and C are the factor matrices ...
+    I,R = A.shape
+    J,R = B.shape
+    K,R = C.shape
+    tenX = np.zeros((K,I,J)) + 1j*np.zeros((K,I,J))
+    for k in range(K):
+        tenX[k,:,:] = A@np.diag(C[k,:])@B.T
+    return tenX
+
+def ten3_nmode_product(tenX,A,n):
+    K,I,J = tenX.shape
+    Ia,Ra = A.shape
+    if n == 1:
+        return ten3_fold(A@ten3_unfold(tenX,1),[Ia,J,K],1)
+    elif n == 2:
+        return ten3_fold(A@ten3_unfold(tenX,2),[I,Ia,K],2)
+    elif n == 3:
+        return ten3_fold(A@ten3_unfold(tenX,3),[I,J,Ia],3)
+        
+
+    
+
         
 
 
