@@ -129,7 +129,7 @@ def ten3_eye(N):
     return tenI
 
 def ten3_parafac(A,B,C):
-    # A, B and C are the factor matrices ...
+    # A, B and C are the factor matrices of PARAFAC decomposition ...
     I,R = A.shape
     J,R = B.shape
     K,R = C.shape
