@@ -112,10 +112,3 @@ ax.set_xlabel("K")
 ax.set_ylabel("Processing Time (seconds)")
 plt.grid()
 plt.show()
-
-
-
-
-
-
-

@@ -209,25 +209,3 @@ l_pinv = np.dot(np.linalg.pinv(A), A)
 print(l_pinv)
 r_pinv = np.dot(A, np.linalg.pinv(A))
 print(r_pinv)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

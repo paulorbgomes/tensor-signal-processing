@@ -51,22 +51,3 @@ def vec(A):
 
 def unvec(a,ra,ca):
     return a.reshape((ra,ca),order='F')
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    

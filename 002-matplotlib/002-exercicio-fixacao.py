@@ -11,4 +11,3 @@ ax.set_xlabel("Amostra", fontsize=12)
 ax.set_ylabel("Valor", fontsize=12)
 
 plt.show()
-

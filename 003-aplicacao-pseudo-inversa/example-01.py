@@ -59,16 +59,3 @@ ax.set_ylabel("Reconstruction Error")
 plt.legend()
 plt.grid()
 plt.show()
-
-    
-
-
-
-
-
-
-
-
-
-
-

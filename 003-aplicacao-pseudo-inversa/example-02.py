@@ -76,12 +76,3 @@ ber.set_title("BER x SNR")
 plt.xlim(min(SNR), max(SNR))
 plt.grid()
 plt.show()
-
-
-
-
-
-
-
-
-
