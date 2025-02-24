@@ -164,13 +164,13 @@ def ten3_tucker3(tenG,A,B,C):
 def ten3_hosvd(tenX,R1,R2,R3):
     K,I,J = tenX.shape
     # Mode-1 ...
-    U1,S1,Vh1 = np.linalg.svd(ten3_unfold(tenX,1), full_matrices=False)
+    U1,_,_ = np.linalg.svd(ten3_unfold(tenX,1), full_matrices=False)
     U1 = U1[:,0:R1]
     # Mode-2 ...
-    U2,S2,Vh2 = np.linalg.svd(ten3_unfold(tenX,2), full_matrices=False)
+    U2,_,_ = np.linalg.svd(ten3_unfold(tenX,2), full_matrices=False)
     U2 = U2[:,0:R2]
     # Mode-3 ...
-    U3,S3,Vh3 = np.linalg.svd(ten3_unfold(tenX,3), full_matrices=False)
+    U3,_,_ = np.linalg.svd(ten3_unfold(tenX,3), full_matrices=False)
     U3 = U3[:,0:R3]
     # Core ...
     ten_core = ten3_nmode_product(tenX,np.conjugate(U1).T,1)
@@ -220,12 +220,17 @@ def mls_kraof(X,ra,rb,rc):
     C_hat = np.zeros((rc,cc)) + 1j*np.zeros((rc,cc))
     for i in range(cc):
         ci = X[:,i].reshape(ra,rb,rc)
-        ci = np.moveaxis(ci,1,2)
-        Uc,Sc,_ = np.linalg.svd(ten3_unfold(ci,1),full_matrices=False)
-        Ub,Sb,_ = np.linalg.svd(ten3_unfold(ci,2),full_matrices=False)
-        Ua,Sa,_ = np.linalg.svd(ten3_unfold(ci,3),full_matrices=False)
-        C_hat[:,i] = (Sc[0])**(1/3) * Uc[:,0]
-        B_hat[:,i] = (Sb[0])**(1/3) * Ub[:,0]
-        A_hat[:,i] = (Sa[0])**(1/3) * Ua[:,0]
-    return C_hat, B_hat, A_hat
+        ci = np.moveaxis(ci,1,2)   # rank-1 tensor
+        # HOSVD procedure ...
+        Uc,_,_ = np.linalg.svd(ten3_unfold(ci,1),full_matrices=False)
+        Ub,_,_ = np.linalg.svd(ten3_unfold(ci,2),full_matrices=False)
+        Ua,_,_ = np.linalg.svd(ten3_unfold(ci,3),full_matrices=False)
+        tenG = ten3_nmode_product(ci,Uc.conjugate().T,1)
+        tenG = ten3_nmode_product(tenG,Ub.conjugate().T,2)
+        tenG = ten3_nmode_product(tenG,Ua.conjugate().T,3)
+        # Rank-1 approximation procedure ...
+        C_hat[:,i] = (tenG[0,0,0])**(1/3) * Uc[:,0]
+        B_hat[:,i] = (tenG[0,0,0])**(1/3) * Ub[:,0]
+        A_hat[:,i] = (tenG[0,0,0])**(1/3) * Ua[:,0]
+    return A_hat, B_hat, C_hat
     
