@@ -71,7 +71,6 @@ tenX[1,:,:] = np.array([
                         [15,18,21,24]
                        ])
 
-'''
 print(f"{tenX.shape} \n")
 
 X1 = mf.ten3_unfold(tenX,1)
@@ -84,9 +83,7 @@ print(f"{X2.shape}")
 print(f"{X2} \n")
 print(f"{X3.shape}")
 print(f"{X3} \n")
-'''
 
-'''
 # Problem 2 ...
 X1 = mf.ten3_unfold(tenX,1)
 tenX_fold = mf.ten3_fold(X1,[3,4,2],1)
@@ -102,7 +99,7 @@ X3 = mf.ten3_unfold(tenX,3)
 tenX_fold = mf.ten3_fold(X3,[3,4,2],3)
 NMSE_mode3 = mf.nmse(mf.ten3_unfold(tenX,3), mf.ten3_unfold(tenX_fold,3))
 print(f"NMSE(mode_3) = {NMSE_mode3} ... Tensor-Shape: {tenX_fold.shape}")
-'''
+
 
 # Problem 3 ...
 I = 2
@@ -121,12 +118,3 @@ tenX_2 = mf.ten3_nmode_product(tenX_2,C,3)
 
 NMSE = mf.nmse(mf.ten3_unfold(tenX_1,1), mf.ten3_unfold(tenX_2,1))
 print(f"NMSE = {NMSE}")
-
-
-
-
-
-
-
-
-

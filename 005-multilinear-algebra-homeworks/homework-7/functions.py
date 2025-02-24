@@ -164,13 +164,13 @@ def ten3_tucker3(tenG,A,B,C):
 def ten3_hosvd(tenX,R1,R2,R3):
     K,I,J = tenX.shape
     # Mode-1 ...
-    U1,S1,Vh1 = np.linalg.svd(ten3_unfold(tenX,1), full_matrices=False)
+    U1,_,_ = np.linalg.svd(ten3_unfold(tenX,1), full_matrices=False)
     U1 = U1[:,0:R1]
     # Mode-2 ...
-    U2,S2,Vh2 = np.linalg.svd(ten3_unfold(tenX,2), full_matrices=False)
+    U2,_,_ = np.linalg.svd(ten3_unfold(tenX,2), full_matrices=False)
     U2 = U2[:,0:R2]
     # Mode-3 ...
-    U3,S3,Vh3 = np.linalg.svd(ten3_unfold(tenX,3), full_matrices=False)
+    U3,_,_ = np.linalg.svd(ten3_unfold(tenX,3), full_matrices=False)
     U3 = U3[:,0:R3]
     # Core ...
     ten_core = ten3_nmode_product(tenX,np.conjugate(U1).T,1)

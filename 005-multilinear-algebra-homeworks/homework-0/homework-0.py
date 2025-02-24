@@ -12,7 +12,7 @@ import functions as mf
 N = [2,4,8,16,32,64]
 Method_1 = []
 Method_2 = []
-monte_carlo = int(1e+1)
+monte_carlo = int(1e+2)
 
 for n in N:
     print(f"N = {n}")
