@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
 # Problem 1 ...
 I = 3
 J = 4
-K = 3
+K = 5
 Ig = 2
-Jg = 2
-Kg = 3
+Jg = 3
+Kg = 4
 
 # Factor matrices ...
 A = (1/np.sqrt(2)) * (np.random.normal(0,1,(I,Ig)) + 1j*np.random.normal(0,1,(I,Ig)))

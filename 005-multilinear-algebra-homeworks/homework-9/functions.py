@@ -181,3 +181,51 @@ def ten3_hosvd(tenX,R1,R2,R3):
     ten_hosvd = ten3_nmode_product(ten_hosvd,U2,2)
     ten_hosvd = ten3_nmode_product(ten_hosvd,U3,3)
     return ten_hosvd
+
+'''
+chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://www-users.cse.umn.edu/~saad/PDF/umsi-2006-132.pdf
+'''
+def ten3_hooi(tenX,R1,R2,R3,iterations):
+    # Mode-2 ...
+    R,_,_ = np.linalg.svd(ten3_unfold(tenX,2), full_matrices=False)
+    R = R[:,0:R2]
+    # Mode-3 ...
+    V,_,_ = np.linalg.svd(ten3_unfold(tenX,3), full_matrices=False)
+    V = V[:,0:R3]
+    for i in range(int(iterations)):
+        tenC = ten3_nmode_product(tenX,np.conjugate(R).T,2)
+        tenC = ten3_nmode_product(tenC,np.conjugate(V).T,3)
+        L,_,_ = np.linalg.svd(ten3_unfold(tenC,1), full_matrices=False)
+        L = L[:,0:R1]
+        tenD = ten3_nmode_product(tenX,np.conjugate(L).T,1)
+        tenD = ten3_nmode_product(tenD,np.conjugate(V).T,3)
+        R,_,_ = np.linalg.svd(ten3_unfold(tenD,2), full_matrices=False)
+        R = R[:,0:R2]
+        tenE = ten3_nmode_product(tenX,np.conjugate(L).T,1)
+        tenE = ten3_nmode_product(tenE,np.conjugate(R).T,2)
+        V,_,_ = np.linalg.svd(ten3_unfold(tenE,3), full_matrices=False)
+        V = V[:,0:R3]
+    tenB = ten3_nmode_product(tenE,np.conjugate(V).T,3)
+    # Result (low-rank approximation) ...
+    ten_hooi = ten3_nmode_product(tenB,L,1)
+    ten_hooi = ten3_nmode_product(ten_hooi,R,2)
+    ten_hooi = ten3_nmode_product(ten_hooi,V,3)
+    return ten_hooi
+
+def mls_kraof(X,ra,rb,rc):
+    # X = khatri(A,B,C)
+    (rx,cc) = X.shape
+    A_hat = np.zeros((ra,cc)) + 1j*np.zeros((ra,cc))
+    B_hat = np.zeros((rb,cc)) + 1j*np.zeros((rb,cc))
+    C_hat = np.zeros((rc,cc)) + 1j*np.zeros((rc,cc))
+    for i in range(cc):
+        ci = X[:,i].reshape(ra,rb,rc)
+        ci = np.moveaxis(ci,1,2)
+        Uc,Sc,_ = np.linalg.svd(ten3_unfold(ci,1),full_matrices=False)
+        Ub,Sb,_ = np.linalg.svd(ten3_unfold(ci,2),full_matrices=False)
+        Ua,Sa,_ = np.linalg.svd(ten3_unfold(ci,3),full_matrices=False)
+        C_hat[:,i] = (Sc[0])**(1/3) * Uc[:,0]
+        B_hat[:,i] = (Sb[0])**(1/3) * Ub[:,0]
+        A_hat[:,i] = (Sa[0])**(1/3) * Ua[:,0]
+    return C_hat, B_hat, A_hat
+    
